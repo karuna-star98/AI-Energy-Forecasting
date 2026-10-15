@@ -29,7 +29,7 @@ def index():
             "predict": "/predict (POST)"
         }
     )
-    """
+
 @app.get("/health")
 def health():
     return jsonify(
