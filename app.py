@@ -19,15 +19,40 @@ forecaster = EnergyForecaster()
 
 @app.route("/")
 def index():
-    return jsonify(
-        service="AI Energy Forecasting API",
-        status="active",
-        endpoints={
-            "health": "/health",
-            "forecast": "/forecast?hours=N",
-            "predict": "/predict (POST)"
-        }
-    )
+    return """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Energy Forecasting API</title>
+        <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+            .card { background: #1e293b; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 600px; width: 100%; border: 1px solid #334155; }
+            h1 { color: #38bdf8; margin-top: 0; font-size: 24px; }
+            .status { display: inline-block; padding: 6px 14px; background: #059669; color: white; border-radius: 20px; font-size: 13px; font-weight: bold; margin-bottom: 20px; letter-spacing: 0.5px; }
+            p { color: #94a3b8; font-size: 14px; }
+            ul { list-style: none; padding: 0; margin-top: 20px; }
+            li { background: #334155; margin: 12px 0; padding: 14px 18px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #475569; }
+            .endpoint-name { font-weight: 600; color: #e2e8f0; font-size: 14px; }
+            a { color: #38bdf8; text-decoration: none; font-weight: bold; background: #0f172a; padding: 6px 12px; border-radius: 6px; font-size: 13px; border: 1px solid #1e3a8a; }
+            a:hover { background: #1e3a8a; color: #ffffff; }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h1>⚡ AI Energy Forecasting API</h1>
+            <div class="status">● SYSTEM ACTIVE & LIVE</div>
+            <p>Production machine learning model serving hourly energy predictions via REST endpoints.</p>
+            <ul>
+                <li><span class="endpoint-name">System Health & Metadata</span> <a href="/health" target="_blank">View /health</a></li>
+                <li><span class="endpoint-name">Next 24h Energy Forecast</span> <a href="/forecast?hours=24" target="_blank">View /forecast</a></li>
+                <li><span class="endpoint-name">Single Prediction (POST)</span> <span style="color: #cbd5e1; font-size: 13px; font-family: monospace;">/predict</span></li>
+            </ul>
+        </div>
+    </body>
+    </html>
+    """
 @app.get("/health")
 def health():
     return jsonify(
