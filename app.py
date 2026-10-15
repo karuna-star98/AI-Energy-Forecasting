@@ -17,7 +17,17 @@ from src.forecast import EnergyForecaster
 app = Flask(__name__)
 forecaster = EnergyForecaster()
 
-
+@app.route("/")
+def index():
+    return jsonify(
+        service="AI Energy Forecasting API",
+        status="active",
+        endpoints={
+            "health": "/health",
+            "forecast": "/forecast?hours=N",
+            "predict": "/predict (POST)"
+        }
+    )
 @app.get("/health")
 def health():
     return jsonify(
