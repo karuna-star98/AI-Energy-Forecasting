@@ -1,0 +1,53 @@
+16:05:46 | STEP 1/7  Loading data from C:\Users\karun\OneDrive\one drive\OneDrive\Documents\Desktop\projects AI\Project 3\AI-Energy-Forecasting\data\raw\energy.csv
+16:05:46 | Dataset preview:
+              Datetime  Energy  Temperature
+0  2022-01-01 00:00:00   86.24         9.88
+1  2022-01-01 01:00:00   82.26         8.46
+2  2022-01-01 02:00:00   81.86         8.43
+3  2022-01-01 03:00:00   84.68         8.83
+4  2022-01-01 04:00:00   89.95         7.82
+5  2022-01-01 05:00:00   96.70         7.56
+6  2022-01-01 06:00:00   97.92         8.48
+7  2022-01-01 07:00:00   98.83         9.36
+16:05:46 | STEP 2/7  Cleaning data ...
+16:05:46 |    rows_raw                26309
+16:05:46 |    duplicate_rows_removed  5
+16:05:46 |    rows_hourly_grid        26304
+16:05:46 |    missing_hours_before    158
+16:05:46 |    outliers_flagged        10
+16:05:46 |    missing_hours_after     0
+16:05:46 |    start                   2022-01-01 00:00:00
+16:05:46 |    end                     2024-12-31 23:00:00
+16:05:46 |    rows_clean              26304
+16:05:46 | STEP 3/7  Engineering features ...
+16:05:47 |    20 features, 26,113 usable hours
+16:05:47 |    features: hour, dayofweek, month, is_weekend, is_holiday, hour_sin, hour_cos, dow_sin, dow_cos, month_sin, month_cos, temperature, cooling_degree, heating_degree, lag_24, lag_48, lag_168, roll_mean_24, roll_std_24, roll_mean_168
+16:05:47 |    train: 2022-01-08 23:00:00 -> 2024-05-28 08:00:00  (20,890 h)
+16:05:47 |    test : 2024-05-28 09:00:00 -> 2024-12-31 23:00:00  (5,223 h)
+16:05:47 | STEP 4/7  Training and evaluating models (test = unseen future) ...
+16:05:47 | trained Seasonal Naive (last week)   RMSE=  14.92  MAE=  8.68  R2=0.9327  (0.8s)
+16:05:48 | trained Linear Regression            RMSE=  12.06  MAE=  7.89  R2=0.9561  (0.3s)
+16:06:06 | trained MLP (hour + day only)        RMSE=  19.12  MAE= 12.85  R2=0.8896  (18.3s)
+16:06:15 | trained MLP (all features)           RMSE=   7.03  MAE=  5.53  R2=0.9851  (9.1s)
+16:06:18 | trained Random Forest                RMSE=   7.53  MAE=  5.73  R2=0.9829  (3.4s)
+16:06:20 | trained Gradient Boosting            RMSE=   7.25  MAE=  5.56  R2=0.9841  (1.4s)
+16:06:20 | 
+                               MAE    RMSE     R2  MAPE_%
+MLP (all features)           5.528   7.032  0.985   3.926
+Gradient Boosting            5.558   7.255  0.984   3.930
+Random Forest                5.729   7.533  0.983   3.969
+Linear Regression            7.889  12.058  0.956   5.764
+Seasonal Naive (last week)   8.682  14.924  0.933   6.086
+MLP (hour + day only)       12.849  19.119  0.890   7.921
+16:06:20 | BEST MODEL: MLP (all features)
+16:06:20 | STEP 5/7  Saving model and forecasting the future ...
+16:06:31 |    forecast 2025-01-01 00:00:00 -> 2025-01-07 23:00:00; peak 206.1 kWh at 2025-01-07 12:00:00
+16:06:31 | STEP 6/7  Creating charts in images/ ...
+16:06:37 | STEP 7/7  Running the virtual business simulation ...
+16:06:39 | Simulation over 217 test days:
+         Strategy  Total_cost  Avg_daily_peak_kWh  Peak_hour_hit_rate_%   Savings  Savings_%  Peak_reduction_%
+ No load shifting  9358314.99              213.28                   NaN      0.00       0.00              0.00
+   Naive forecast  9132094.85              205.34                 77.30 226220.14       2.42              3.72
+      AI forecast  9107375.41              203.61                 85.71 250939.58       2.68              4.53
+Perfect foresight  9089333.16              202.09                100.00 268981.83       2.87              5.25
+16:06:39 | DONE. Charts: images/   Tables: outputs/   Model: models/best_model.joblib

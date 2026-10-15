@@ -1,0 +1,5 @@
+Strategy,Total_cost,Avg_daily_peak_kWh,Peak_hour_hit_rate_%,Savings,Savings_%,Peak_reduction_%
+No load shifting,9358314.99,213.28,,0.0,0.0,0.0
+Naive forecast,9132094.85,205.34,77.3,226220.14,2.42,3.72
+AI forecast,9107375.41,203.61,85.71,250939.58,2.68,4.53
+Perfect foresight,9089333.16,202.09,100.0,268981.83,2.87,5.25

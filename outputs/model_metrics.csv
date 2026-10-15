@@ -1,0 +1,7 @@
+Model,MAE,RMSE,R2,MAPE_%
+MLP (all features),5.528,7.032,0.985,3.926
+Gradient Boosting,5.558,7.255,0.984,3.93
+Random Forest,5.729,7.533,0.983,3.969
+Linear Regression,7.889,12.058,0.956,5.764
+Seasonal Naive (last week),8.682,14.924,0.933,6.086
+MLP (hour + day only),12.849,19.119,0.89,7.921
